@@ -1,10 +1,11 @@
 # AFH Office Location Feed
 
-This is the frontend application for the AFH Office Location Feed. It displays paginated AFH office locations using Vue 3, Bootstrap 5, and Vite.
+This is the frontend application for the AFH Office Location Feed. It displays paginated AFH office locations using Vue
+3, Bootstrap 5, and Vite.
 
 ---
 
-##  Live Features
+## Live Features
 
 - Loads 4 offices per page from the backend
 - “Load More” button fetches the next page
