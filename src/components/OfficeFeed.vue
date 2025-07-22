@@ -11,11 +11,10 @@
     </div>
   </div>
 </template>
-
 <script setup>
 import {ref, computed, onMounted} from 'vue';
 import OfficeCard from './OfficeCard.vue';
-import Config from "../config.js";
+import OfficeService from "../services/OfficeService.js";
 
 const offices = ref([]);
 const pageIndex = ref(1);
@@ -27,11 +26,17 @@ const canLoadMore = computed(() => {
 });
 
 async function loadOffices() {
-  const res = await fetch(`${config.apiUrl}?pageIndex=${pageIndex.value}&pageSize=${pageSize}`);
-  const json = await res.json();
+  try {
+    const result = await OfficeService.getOffices(pageIndex.value, pageSize);
 
-  offices.value.push(...json.payload);
-  totalCount.value = json.paginationMetaData.totalRecords;
+    if (result?.payload?.length) {
+      offices.value.push(...result.payload);
+    }
+
+    totalCount.value = result?.paginationMetaData?.totalRecords ?? 0;
+  } catch (err) {
+    console.error('Error fetching offices:', err);
+  }
 }
 
 function loadMore() {
