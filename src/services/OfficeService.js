@@ -4,7 +4,6 @@ import config from '@/config';
 const OfficeService = {
     async getOffices(pageIndex = 1, pageSize = 4) {
         try {
-            console.log('calling getOffices', config);
             const response = await axios.get(`${config.apiUrl}?pageIndex=${pageIndex}&pageSize=${pageSize}`);
             return response.data;
         } catch (error) {
