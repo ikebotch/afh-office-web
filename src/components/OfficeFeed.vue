@@ -2,7 +2,7 @@
   <div class="container py-4">
     <div class="row g-4">
       <div class="col-md-6" v-for="(office, index) in offices" :key="index">
-        <OfficeCard :office="office" />
+        <OfficeCard :office="office"/>
       </div>
     </div>
 
@@ -15,6 +15,7 @@
 <script setup>
 import {ref, computed, onMounted} from 'vue';
 import OfficeCard from './OfficeCard.vue';
+import Config from "../config.js";
 
 const offices = ref([]);
 const pageIndex = ref(1);
@@ -26,11 +27,8 @@ const canLoadMore = computed(() => {
 });
 
 async function loadOffices() {
-  const res = await fetch(`http://localhost:5142/api/v1/Offices?pageIndex=${pageIndex.value}&pageSize=${pageSize}`);
+  const res = await fetch(`${config.apiUrl}?pageIndex=${pageIndex.value}&pageSize=${pageSize}`);
   const json = await res.json();
-
-  console.log(json
-  );
 
   offices.value.push(...json.payload);
   totalCount.value = json.paginationMetaData.totalRecords;
